@@ -8,10 +8,11 @@ Create roles that allows redshift to access data from s3
 Create redshift cluster
 
 Get the jdbc url
-jdbc:redshift://redshift-cluster-aj.co7o4qv18zxu.us-east-1.redshift.amazonaws.com:5439/dev
+jdbc:redshift://redshift-cluster-1-aj.co7o4qv18zxu.us-east-1.redshift.amazonaws.com:5439/dev
 
 Get the role arn (will be needed when we load data from s3 to redshift )
 arn:aws:iam::789922351583:role/mynewr1rss3
+arn:aws:iam::789922351583:role/myrolrss3
 
 Test your connection
 Amazon Redshift retains a great deal of metadata about the various databases within a cluster and finding a 
@@ -159,32 +160,33 @@ Unzip and load the individual files to a tickit folder in your Amazon S3 bucket 
 Edit the COPY commands in this tutorial to point to the files in your Amazon S3 bucket.
 
 copy data from s3
+
 copy users from 's3://mysamplebu/tickit/allusers_pipe.txt' 
-credentials 'aws_iam_role=arn:aws:iam::789922351583:role/mynewr1rss3' 
+credentials 'aws_iam_role=arn:aws:iam::789922351583:role/myrolrss3' 
 delimiter '|' region 'us-east-1';
 
 copy venue from 's3://mysamplebu/tickit/venue_pipe.txt' 
-credentials 'aws_iam_role=arn:aws:iam::789922351583:role/mynewr1rss3' 
+credentials 'aws_iam_role=arn:aws:iam::789922351583:role/myrolrss3' 
 delimiter '|' region 'us-east-1';
 
 copy category from 's3://mysamplebu/tickit/category_pipe.txt' 
-credentials 'aws_iam_role=arn:aws:iam::789922351583:role/mynewr1rss3' 
+credentials 'aws_iam_role=arn:aws:iam::789922351583:role/myrolrss3' 
 delimiter '|' region 'us-east-1';
 
 copy date from 's3://mysamplebu/tickit/date2008_pipe.txt' 
-credentials 'aws_iam_role=arn:aws:iam::789922351583:role/mynewr1rss3' 
+credentials 'aws_iam_role=arn:aws:iam::789922351583:role/myrolrss3' 
 delimiter '|' region 'us-east-1';
 
 copy event from 's3://mysamplebu/tickit/allevents_pipe.txt' 
-credentials 'aws_iam_role=arn:aws:iam::789922351583:role/mynewr1rss3' 
+credentials 'aws_iam_role=arn:aws:iam::789922351583:role/myrolrss3' 
 delimiter '|' timeformat 'YYYY-MM-DD HH:MI:SS' region 'us-east-1';
 
 copy listing from 's3://mysamplebu/tickit/listings_pipe.txt' 
-credentials 'aws_iam_role=arn:aws:iam::789922351583:role/mynewr1rss3' 
+credentials 'aws_iam_role=arn:aws:iam::789922351583:role/myrolrss3' 
 delimiter '|' region 'us-east-1';
 
 copy sales from 's3://mysamplebu/tickit/sales_tab.txt'
-credentials 'aws_iam_role=arn:aws:iam::789922351583:role/mynewr1rss3' 
+credentials 'aws_iam_role=arn:aws:iam::789922351583:role/myrolrss3' 
 delimiter '\t' timeformat 'MM/DD/YYYY HH:MI:SS' region 'us-east-1';
 
 Querying your data/analysis
