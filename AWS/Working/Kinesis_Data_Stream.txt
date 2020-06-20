@@ -181,8 +181,6 @@ C:\Users\Win10>aws kinesis get-records --shard-iterator AAAAAAAAAAElDNHdjiq51A5k
 for more commands:
 https://docs.aws.amazon.com/cli/latest/reference/kinesis/index.html
 
-==========================
-Kinesis Data Firehose
-aws firehose put-record --delivery-stream-name xyz --record Data=100
+===============
 
 
