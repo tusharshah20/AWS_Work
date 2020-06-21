@@ -55,3 +55,4 @@ we can take data from Kinesis Data stream or using commands from CLI
 ==========================
 Kinesis Data Firehose
 aws firehose put-record --delivery-stream-name xyz --record Data=100
+Note**If required --cli-binary-format raw-in-base64-out
