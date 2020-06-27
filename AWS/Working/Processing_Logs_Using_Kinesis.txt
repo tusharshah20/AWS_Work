@@ -37,11 +37,11 @@ alias python=python3
 source .bashrc
 
 update these in ~/.aws/credentials
-export AWS_ACCESS_KEY_ID=ASIA3P2YKRHP27SCQJNK
+export AWS_ACCESS_KEY_ID=
 
-export AWS_SECRET_ACCESS_KEY=sBDFFVuYkTryBOBHAkIy7urrkGTk3/8Eb0yREO19
+export AWS_SECRET_ACCESS_KEY=
 
-export AWS_SESSION_TOKEN=FwoGZXIvYXdzEEwaDJ3WolyXDan1yCaFqCK0Aa3HoRCPoJPIzxoEaj0HfQAbnI/XfB3CCmPsMGyyD+eawXpUVQ/j9nuzDkaQxc+M0OuE9DChfZM2CkHqIHiHEVxkq693RbPQjde7tQvbEgltczjb7dLxqZu5cJOI1pOkVZFLhbPu5m4LompmuNKZKSySommXQ8DcmwXgI69C1zyi7Pt1vVn+iH9EDS897rwZJD/weHhJ8Lx1oDP5rq7LW8a9buVAyQRUyxQt7Hh6G0PSP5Mk0yie9tj3BTItaKpVQjsSQe6ykAVJ8Z76fUfMmOzMu/Ti2MYzW8V/kr2hF9K4MzpS18mQq0CX
+export AWS_SESSION_TOKEN=
 
 ubuntu@ip-172-31-48-251:~$ aws --version
 aws-cli/1.18.88 Python/3.6.9 Linux/5.3.0-1023-aws botocore/1.17.11

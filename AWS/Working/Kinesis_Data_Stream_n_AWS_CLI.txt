@@ -85,7 +85,8 @@ aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 12 --re
 aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 134 --region us-east-1
 
 #sample (notice cli-binary...option which is if you are using AWS CLI 2)
-C:\Users\Win10>aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 12 --region us-east-1 --cli-binary-format raw-in-base64-out
+C:\Users\Win10>aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 12 --region us-east-1 
+  --cli-binary-format raw-in-base64-out
 {
     "ShardId": "shardId-000000000001",
     "SequenceNumber": "49607739360526273584615907892315791928604175223220076562"
