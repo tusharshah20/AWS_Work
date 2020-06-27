@@ -1,0 +1,78 @@
+Processing logs using Kinesis:
+
+Refer presentation for more info:
+
+--Launch 2 EC2 instances (micro instances should be fine
+                          remember to have keypair created to access instances)
+[we can use these instances to work with AWS services such as 'kinesis data stream']
+[we can later use cloudwatch to monitor state of these instances]
+
+connect to one of the EC2 instance (in my case m1) and
+
+setup awscli on ec2 instance (in our case Ubuntu)
+Ref link : https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html
+
+To install the AWS CLI version 1 using the bundled installer
+curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+
+Extract the files from the package. If you don't have unzip to extract the files, use your Linux distribution's built-in package manager to install it.
+unzip awscli-bundle.zip
+
+Run the install program. The installer installs the AWS CLI at /usr/local/aws and creates the symlink aws at the /usr/local/bin directory. Using the -b option to create a symlink eliminates the need to specify the install directory in the user's $PATH variable. This should enable all users to call the AWS CLI by entering aws from any directory.
+sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+[The above mentioned command might fail with python error. You may have python3 installed in /usr/bin/python3
+ubuntu@ip-172-31-48-251:~$ sudo su
+root@ip-172-31-48-251:/home/ubuntu# cd
+root@ip-172-31-48-251:~# apt install python3-distutils
+
+Now run the command again:
+ sudo /usr/bin/python3 ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+]
+
+Optional:
+update your .bashrc for ubuntu user and refresh it
+vi .bashrc
+alias python=python3
+source .bashrc
+
+update these in ~/.aws/credentials
+export AWS_ACCESS_KEY_ID=ASIA3P2YKRHP27SCQJNK
+
+export AWS_SECRET_ACCESS_KEY=sBDFFVuYkTryBOBHAkIy7urrkGTk3/8Eb0yREO19
+
+export AWS_SESSION_TOKEN=FwoGZXIvYXdzEEwaDJ3WolyXDan1yCaFqCK0Aa3HoRCPoJPIzxoEaj0HfQAbnI/XfB3CCmPsMGyyD+eawXpUVQ/j9nuzDkaQxc+M0OuE9DChfZM2CkHqIHiHEVxkq693RbPQjde7tQvbEgltczjb7dLxqZu5cJOI1pOkVZFLhbPu5m4LompmuNKZKSySommXQ8DcmwXgI69C1zyi7Pt1vVn+iH9EDS897rwZJD/weHhJ8Lx1oDP5rq7LW8a9buVAyQRUyxQt7Hh6G0PSP5Mk0yie9tj3BTItaKpVQjsSQe6ykAVJ8Z76fUfMmOzMu/Ti2MYzW8V/kr2hF9K4MzpS18mQq0CX
+
+ubuntu@ip-172-31-48-251:~$ aws --version
+aws-cli/1.18.88 Python/3.6.9 Linux/5.3.0-1023-aws botocore/1.17.11
+
+====================================
+Now lets create stream with a shard count ( from command line) unlike earlier we did from AWS console.
+
+aws kinesis create-stream --stream-name testKinesis --shard-count 1
+aws kinesis describe-stream --stream-name testKinesis
+
+Refer presentation for more info:
+Now let's create a cloud watch event
+services > cloudwatch > Events > rules > Service Name: Ec2
+                                         Event Type : Ec2 instance state-change notification
+					 We could choose 'Any state' or 'Specific states: pending/running/shutting-down/stopped/stopping/terminted'
+					 Any instance/specific instances
+				         Targets : Refer presentation ( choose Kinesis stream > testKinesis )
+					 Roles : use an existing one or create new one 
+configure details > name and description > create rule..
+
+Now go to EC2 instances and stop the second instance (m2 in my case)
+
+Go back to cloud watch, look for your events and click on 'show metrics for the rule'
+>TriggeredRules (look into the graph)
+
+Now from cli
+we can access records from 'data stream'
+aws kinesis get-shard-iterator --stream-name testKinesis --shard-iterator-type TRIM_HORIZON --shard-id shardId-000000000000
+aws kinesis get-records --shard-iterator xxxxxx --limit 3
+
+
+
+
+
