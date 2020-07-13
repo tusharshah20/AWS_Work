@@ -1,6 +1,7 @@
 Working with Kinesis Firehose
 ------------------------
 
+Kinesis > Kinesis Firehose > 
 Create Delivery Stream
 --name: TestDeliveryStream
 
@@ -62,9 +63,11 @@ aws firehose put-record --delivery-stream-name xyz --record Data=100
 Note**If required --cli-binary-format raw-in-base64-out
 
 Option 2:
-Kinesis Data Firehose (Put data in already created Data Stream and let Data firehose be used to transform or push data 
- to a destination)
---complete steps in "Kinesis_Data_Stream_n_AWS_CLI" upto describe only..
+Kinesis Data Firehose (Put data into already created Data Stream and let Data firehose be used to consume data 
+from data stream & transform or push data  to a destination)
+
+--If you already created data stream as described in "Amazon_Kinesis_Data_Stream" from console/cli, then we can use this stream
+--If not, create a data stream as mentioned in "Amazon_Kinesis_Data_Stream"
 --After steps are completed , click your Data stream from console
 --Under consumers 'Amazon Kinesis Data firehose' > process with delivery stream
 --Delivery stream name: TestStrm
@@ -92,6 +95,8 @@ Select TestStrm > Test with demo data (only works when source is not 'Data strea
 
 Lets put data into delivery stream from CLI by putting data into 'StreamTest' i.e. our 'Data Stream'
 ----
+Note**--cli-binary-format raw-in-base64-out is required if your using AWS CLI V2
+
 C:\Users\Win10>aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 12 --region us-east-1 --cli-binary-format raw-in-base64-out
 {
     "ShardId": "shardId-000000000000",
@@ -144,6 +149,7 @@ Select from > Show file preview..
 Now Let's test Transformation:
 Click and open your delivery stream i.e. 'TestStrm'
 Edit > Source record transformation > enabled > follow as mentioned in "transformation section" above.
+
 --Now test by pushing in some new data
 ---
 C:\Users\Win10>aws kinesis put-record --stream-name StreamTest --partition-key 1 --data Newdata --region us-east-1 --cli-binary-format raw-in-base64-out
