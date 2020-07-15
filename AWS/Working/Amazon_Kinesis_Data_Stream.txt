@@ -2,37 +2,20 @@ Kinesis Data Stream
 ---------------
 reference:https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html
 #Create a data stream
-#get arn
-arn:aws:kinesis:us-east-1:789922351583:stream/StreamTest
 
-========
-Install or update the AWS CLI version 2 on Windows using the MSI installer
-Download the AWS CLI MSI installer for Windows (64-bit) at https://awscli.amazonaws.com/AWSCLIV2.msi.
-
-To update your current installation of AWS CLI version 2 on Windows, download a new installer each time you update to overwrite previous versions. 
-======
-c:\>aws --version
-C:\>aws configure
-AWS Access Key ID [None]: 
-AWS Secret Access Key [None]: 
-Default region name [None]: us-east-1
-Default output format [None]: json
-
-or in windows
-C:\Users\Win10>aws --version
-aws-cli/2.0.19 Python/3.7.7 Windows/10 botocore/2.0.0dev23
-
-C:\Users\Win10>set AWS_ACCESS_KEY_ID=
-
-C:\Users\Win10>set AWS_SECRET_ACCESS_KEY=
-
-C:\Users\Win10>set AWS_SESSION_TOKEN=
-
-=============
 #working with data stream
 
-From console > search for kinesis > Under Get started select "Kinesis Data Streams" > Create data stream > name: StreamTest
-   													   shard: 1
+From console 
+> search for kinesis 
+> Under Get started select "Kinesis Data Streams" 
+> Create data stream 
+> name: StreamTest
+        shard: 1
+
+or if AWS CLI already setup
+From CLI
+#create stream with a shard count ,unlike earlier we did from AWS console.
+aws kinesis create-stream --stream-name testKinesis --shard-count 1
 
 #describe aws stream
 aws kinesis describe-stream --stream-name StreamTest --region us-east-1
@@ -84,7 +67,7 @@ aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 1 --reg
 aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 12 --region us-east-1
 aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 134 --region us-east-1
 
-#sample (notice cli-binary...option which is if you are using AWS CLI 2)
+#sample (notice cli-binary...option to be used when/if you are using AWS CLI 2)
 C:\Users\Win10>aws kinesis put-record --stream-name StreamTest --partition-key 1 --data 12 --region us-east-1 
   --cli-binary-format raw-in-base64-out
 {
